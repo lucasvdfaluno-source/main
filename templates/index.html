@@ -1,9 +1,166 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <title>Meu Site</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Os Rabugentos</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <h1>Site funcionando!</h1>
+
+    <header>
+        <div class="logo">
+            🚗 OS RABUGENTOS
+        </div>
+
+        <nav>
+            <a href="#sobre">Sobre</a>
+            <a href="#eventos">Eventos</a>
+            <a href="#galeria">Galeria</a>
+            <a href="#contato">Contato</a>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="overlay"></div>
+
+        <div class="hero-content">
+
+            <h1>
+                ENCONTRO DE<br>
+                CARROS ANTIGOS
+            </h1>
+
+            <p>
+                Clássicos • Rock • Gincanas • Cultura Automotiva
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#eventos" class="btn">
+                    Próximo Evento
+                </a>
+
+                <a href="#galeria" class="btn btn-dark">
+                    Ver Galeria
+                </a>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- SOBRE -->
+
+    <section id="sobre">
+
+        <h2>🔥 O GRUPO</h2>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>🏆 Gincanas</h3>
+
+                <p>
+                    Competições e desafios entre os participantes dos encontros.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>🎸 Rock Ao Vivo</h3>
+
+                <p>
+                    Shows e bandas para animar os eventos dos Rabugentos.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>🚘 Carros Clássicos</h3>
+
+                <p>
+                    Exposição de carros antigos vindos de diversas cidades.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- EVENTO -->
+
+    <section id="eventos" class="eventos">
+
+        <h2>🏁 PRÓXIMO EVENTO</h2>
+
+        <div class="evento-box">
+
+            <h3>Encontro Os Rabugentos 2026</h3>
+
+            <p>📍 Rosário do Sul - RS</p>
+
+            <p>📅 Em breve</p>
+
+            <p>
+                🎵 Rock • 🚗 Exposição • 🏆 Premiações • 🍔 Praça de alimentação
+            </p>
+
+            <button>
+                Fazer Inscrição
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- GALERIA -->
+
+    <section id="galeria">
+
+        <h2>📸 GALERIA</h2>
+
+        <div class="galeria-grid">
+
+            <div class="foto">🚘</div>
+            <div class="foto">🔥</div>
+            <div class="foto">🎸</div>
+            <div class="foto">🏁</div>
+            <div class="foto">🚗</div>
+            <div class="foto">🏆</div>
+
+        </div>
+
+    </section>
+
+    <!-- CONTATO -->
+
+    <section id="contato" class="contato">
+
+        <h2>📱 ENTRE EM CONTATO</h2>
+
+        <p>
+            Quer participar do próximo encontro dos Rabugentos?
+        </p>
+
+        <a class="whatsapp" href="#">
+            Entrar em Contato
+        </a>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        © 2026 - Os Rabugentos | Rosário do Sul - RS
+
+    </footer>
+
 </body>
 </html>
