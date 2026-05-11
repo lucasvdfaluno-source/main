@@ -68,15 +68,22 @@
 
         <div class="divider"></div>
 
-        <!-- CONTADOR -->
+                <!-- CONTADOR -->
         <section id="contador">
             <h2>⏳ Nosso <em>Tempo</em> Juntos</h2>
+
             <div class="contador-box">
                 <div class="tempo"><span id="dias">0</span><small>Dias</small></div>
                 <div class="tempo"><span id="horas">0</span><small>Horas</small></div>
                 <div class="tempo"><span id="minutos">0</span><small>Minutos</small></div>
                 <div class="tempo"><span id="segundos">0</span><small>Segundos</small></div>
             </div>
+
+            <!-- FRASE -->
+            <p class="frase-contador">
+                A cada segundo que passa eu te amo ainda mais ❤️
+            </p>
+
         </section>
 
         <div class="divider"></div>
@@ -133,16 +140,46 @@
         <!-- SURPRESA -->
         <section>
             <h2>🎁 Uma <em>surpresa</em></h2>
+
             <div class="surpresa-box">
-                <button class="surpresa-btn" onclick="mostrarSurpresa()">Abrir Surpresa ✨</button>
+
+                <button class="surpresa-btn" onclick="mostrarSurpresa()">
+                    Abrir Surpresa ✨
+                </button>
+
                 <div id="surpresa" class="mensagem-surpresa">
+
                     <h3>Eu te amo ❤️</h3>
-                    <p>Não importa quanto tempo passe, você sempre vai ser a melhor parte dos meus dias.</p>
+
+                    <p>
+                        Não importa quanto tempo passe,
+                        você sempre vai ser a melhor parte dos meus dias.
+                    </p>
+
+                    <!-- IMAGEM -->
+                    <img id="fotoSurpresa" src="/static/img/f20.png" alt="Foto romântica">
+
+                    <!-- BOTÕES -->
+                    <div class="controle-fotos">
+
+                        <button onclick="fotoAnterior()">
+                            ⬅
+                        </button>
+
+                        <button onclick="proximaFoto()">
+                            ➡
+                        </button>
+
+                    </div>
+
                 </div>
+
             </div>
         </section>
 
         <div class="divider"></div>
+
+
 
         <!-- CARTA -->
         <section id="carta">
@@ -253,14 +290,39 @@
             "Porque você me faz feliz até nos dias difíceis ❤️",
             "Porque ao seu lado tudo fica melhor ❤️",
             "Porque você é minha pessoa favorita ❤️",
-            "Porque eu amo cada detalhe seu ❤️"
+            "Porque eu amo cada detalhe seu ❤️",
+            "Porque você sempre está do meu lado ❤️",
+            "Porque você sempre pensa em mim ❤️",
+            "Porque você não sai da minha cabeça ❤️",
+            "Porque você me conhece melhor do que eu mesmo ❤️",
+            "Porque você me irrita como ninguém 😅",
+            "Porque você é perfeita ❤️",
+            "Porque você sempre vai ser minha princesa ❤️",
+            "Porque você é tudo para mim ❤️"
         ];
+
+        let indiceMotivo = 0;
+
         function trocarMotivo() {
             const el = document.getElementById("motivo");
+
             el.style.opacity = "0";
+
             setTimeout(() => {
-                el.innerText = motivos[Math.floor(Math.random() * motivos.length)];
+
+                // Mostra o motivo atual
+                el.innerText = motivos[indiceMotivo];
+
+                // Passa para o próximo
+                indiceMotivo++;
+
+                // Se chegar no fim, volta para o início
+                if (indiceMotivo >= motivos.length) {
+                    indiceMotivo = 0;
+                }
+
                 el.style.opacity = "1";
+
             }, 300);
         }
 
@@ -272,10 +334,47 @@
             botao.innerText = surpresa.classList.contains("show") ? "Fechar Surpresa 💔" : "Abrir Surpresa ✨";
         }
 
+        // ── FOTOS DA SURPRESA ──
+        const fotos = [
+            "/static/img/f20.png",
+            "/static/img/f21.png",
+            "/static/img/f22.png",
+            "/static/img/f23.png"
+        ];
+
+        let fotoAtual = 0;
+
+
+        // PRÓXIMA FOTO
+        function proximaFoto() {
+
+            fotoAtual++;
+
+            if (fotoAtual >= fotos.length) {
+                fotoAtual = 0;
+            }
+
+            document.getElementById("fotoSurpresa").src = fotos[fotoAtual];
+        }
+
+
+        // FOTO ANTERIOR
+        function fotoAnterior() {
+
+            fotoAtual--;
+
+            if (fotoAtual < 0) {
+                fotoAtual = fotos.length - 1;
+            }
+
+            document.getElementById("fotoSurpresa").src = fotos[fotoAtual];
+        }
+
         // ── BOTÃO TOPO ──
         window.addEventListener("scroll", () => {
             document.getElementById("btnTopo").classList.toggle("show", window.scrollY > 500);
         });
     </script>
+
 </body>
 </html>

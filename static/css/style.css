@@ -822,3 +822,43 @@ footer {
 
     section { padding: 90px 5% 60px; }
 }
+
+.mensagem-surpresa img{
+    width: 100%;
+    max-width: 350px;
+    border-radius: 20px;
+    margin-top: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.controle-fotos{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.controle-fotos button{
+    border: none;
+    padding: 10px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    background: #ff4f81;
+    color: white;
+    transition: 0.3s;
+}
+
+.controle-fotos button:hover{
+    transform: scale(1.08);
+    background: #ff2f6d;
+}
+
+.frase-contador{
+    margin-top: 25px;
+    font-size: 1.1rem;
+    color: #ffd6e3;
+    text-align: center;
+    font-style: italic;
+    opacity: 0.9;
+}
