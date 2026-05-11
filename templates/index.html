@@ -1,484 +1,281 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Nossa História ❤️</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
-
 <body>
 
-    <!-- PARTICULAS -->
+    <!-- BG ESTRELAS -->
+    <canvas id="bgCanvas"></canvas>
 
+    <!-- PARTÍCULAS -->
     <div class="particles" id="particles"></div>
 
     <!-- INTRO -->
-
-    <div id="intro" class="intro">
-
+    <div id="intro">
         <div class="intro-content">
-
             <h1>❤️</h1>
-
-            <h2>Nossa História</h2>
-
-            <p>
-                Um lugar cheio das nossas memórias
-            </p>
-
-            <button onclick="entrarSite()">
-                Entrar ✨
-            </button>
-
+            <h2>Nossa <em>História</em></h2>
+            <p>Um lugar cheio das nossas memórias</p>
+            <button onclick="entrarSite()">Entrar ✨</button>
         </div>
-
     </div>
 
     <!-- AUDIO -->
-
     <audio id="musica" loop>
-
         <source src="{{ url_for('static', filename='audio/musica.mp3') }}" type="audio/mp3">
-
     </audio>
 
     <!-- SITE -->
-
     <div id="siteConteudo" class="site-hidden">
 
         <!-- HEADER -->
-
         <header>
-
-            <div class="logo">
-                ❤️ Nós Dois
-            </div>
-
+            <div class="logo">❤️ Nós Dois</div>
             <nav>
-
                 <a href="#inicio">Início</a>
-
                 <a href="#contador">Tempo</a>
-
                 <a href="#historia">História</a>
-
                 <a href="#galeria">Fotos</a>
-
                 <a href="#carta">Carta</a>
-
             </nav>
-
         </header>
 
         <!-- HERO -->
-
-        <section id="inicio" class="hero">
-
+        <section id="inicio">
             <div class="hero-content">
-
-                <h1>
-                    Você é minha<br>
-                    melhor escolha ❤️
-                </h1>
-
-                <p>
-                    Cada segundo ao seu lado virou uma lembrança inesquecível.
-                </p>
-
-                <a href="#contador" class="btn">
-                    Ver Nossa História
-                </a>
-
+                <h1>Você é minha<br><em>melhor escolha</em> ❤️</h1>
+                <p>Cada segundo ao seu lado virou uma lembrança inesquecível.</p>
+                <a href="#contador" class="btn">Ver Nossa História</a>
+                <div class="musica">
+                    <iframe
+                        style="border-radius:12px"
+                        src="https://open.spotify.com/embed/track/4HzEzvGHfTGEQnw8hd6L1W?utm_source=generator"
+                        width="100%" height="152" frameborder="0"
+                        allowfullscreen=""
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy">
+                    </iframe>
+                </div>
             </div>
-
         </section>
+
+        <div class="divider"></div>
 
         <!-- CONTADOR -->
-
         <section id="contador">
-
-            <h2>⏳ Nosso Tempo Juntos</h2>
-
+            <h2>⏳ Nosso <em>Tempo</em> Juntos</h2>
             <div class="contador-box">
-
-                <div class="tempo">
-                    <span id="dias">0</span>
-                    <small>Dias</small>
-                </div>
-
-                <div class="tempo">
-                    <span id="horas">0</span>
-                    <small>Horas</small>
-                </div>
-
-                <div class="tempo">
-                    <span id="minutos">0</span>
-                    <small>Minutos</small>
-                </div>
-
-                <div class="tempo">
-                    <span id="segundos">0</span>
-                    <small>Segundos</small>
-                </div>
-
+                <div class="tempo"><span id="dias">0</span><small>Dias</small></div>
+                <div class="tempo"><span id="horas">0</span><small>Horas</small></div>
+                <div class="tempo"><span id="minutos">0</span><small>Minutos</small></div>
+                <div class="tempo"><span id="segundos">0</span><small>Segundos</small></div>
             </div>
-
         </section>
+
+        <div class="divider"></div>
 
         <!-- HISTÓRIA -->
-
         <section id="historia">
-
-            <h2>✨ Nossa História</h2>
-
+            <h2>✨ Nossa <em>História</em></h2>
             <div class="timeline">
-
                 <div class="momento">
-
                     <h3>💌 Quando nos conhecemos</h3>
-
-                    <p>
-                        O início da melhor parte da minha vida.
-                    </p>
-
+                    <p>O início da melhor parte da minha vida.</p>
                 </div>
-
                 <div class="momento">
-
                     <h3>🌹 Primeiro encontro</h3>
-
-                    <p>
-                        Um momento simples que se tornou inesquecível.
-                    </p>
-
+                    <p>Um momento simples que se tornou inesquecível.</p>
                 </div>
-
                 <div class="momento">
-
                     <h3>❤️ Nosso amor</h3>
-
-                    <p>
-                        Todos os dias ao seu lado fazem tudo valer a pena.
-                    </p>
-
+                    <p>Todos os dias ao seu lado fazem tudo valer a pena.</p>
                 </div>
-
             </div>
-
         </section>
+
+        <div class="divider"></div>
 
         <!-- GALERIA -->
-
         <section id="galeria">
-
-            <h2>📸 Nossos Momentos</h2>
-
+            <h2>📸 Nossos <em>Momentos</em></h2>
             <div class="galeria-grid">
-
-                <div class="foto">
-                    <img src="/static/img/f1.jpeg">
-                </div>
-
-                <div class="foto">
-                    <img src="/static/img/f5.jpeg">
-                </div>
-
-                <div class="foto">
-                    <img src="/static/img/f3.jpeg">
-                </div>
-
-                <div class="foto">
-                    <img src="/static/img/f4.jpeg">
-                </div>
-
-                <div class="foto">
-                    <img src="/static/img/f6.jpeg">
-                </div>
-
-                <div class="foto">
-                    <img src="/static/img/f7.jpeg">
-                </div>
-
-                <div class="foto">
-                    <img src="/static/img/f8.jpeg">
-                </div>
-
-                <div class="foto">
-                    <img src="/static/img/f9.jpeg">
-                </div>
-
+                <div class="foto"><img src="/static/img/f1.jpeg" alt=""></div>
+                <div class="foto"><img src="/static/img/f5.jpeg" alt=""></div>
+                <div class="foto"><img src="/static/img/f3.jpeg" alt=""></div>
+                <div class="foto"><img src="/static/img/f4.jpeg" alt=""></div>
+                <div class="foto"><img src="/static/img/f6.jpeg" alt=""></div>
+                <div class="foto"><img src="/static/img/f7.jpeg" alt=""></div>
+                <div class="foto"><img src="/static/img/f8.jpeg" alt=""></div>
+                <div class="foto"><img src="/static/img/f9.jpeg" alt=""></div>
             </div>
-
         </section>
+
+        <div class="divider"></div>
 
         <!-- MOTIVOS -->
-
         <section>
-
-            <h2>💖 Motivos pelos quais eu te amo</h2>
-
+            <h2>💖 Motivos pelos quais <em>eu te amo</em></h2>
             <div class="motivo-box">
-
-                <p id="motivo">
-                    Porque seu sorriso ilumina meus dias ❤️
-                </p>
-
-                <button onclick="trocarMotivo()">
-                    Mostrar Outro ❤️
-                </button>
-
+                <p id="motivo">Porque seu sorriso ilumina meus dias ❤️</p>
+                <button onclick="trocarMotivo()">Mostrar Outro ❤️</button>
             </div>
-
         </section>
+
+        <div class="divider"></div>
 
         <!-- SURPRESA -->
-
         <section>
-
-            <h2>🎁 Uma surpresa</h2>
-
+            <h2>🎁 Uma <em>surpresa</em></h2>
             <div class="surpresa-box">
-
-                <button class="surpresa-btn" onclick="mostrarSurpresa()">
-                    Abrir Surpresa ✨
-                </button>
-
+                <button class="surpresa-btn" onclick="mostrarSurpresa()">Abrir Surpresa ✨</button>
                 <div id="surpresa" class="mensagem-surpresa">
-
-                    <h3 style="margin-bottom:20px;color:#ff4d8d;font-size:32px;">
-                        Eu te amo ❤️
-                    </h3>
-
-                    <p style="font-size:20px;line-height:35px;color:#ddd;">
-                        Não importa quanto tempo passe, você sempre vai ser
-                        a melhor parte dos meus dias.
-                    </p>
-
+                    <h3>Eu te amo ❤️</h3>
+                    <p>Não importa quanto tempo passe, você sempre vai ser a melhor parte dos meus dias.</p>
                 </div>
-
             </div>
-
         </section>
+
+        <div class="divider"></div>
 
         <!-- CARTA -->
-
         <section id="carta">
-
-            <h2>💌 Uma carta para você</h2>
-
+            <h2>💌 Uma <em>carta</em> para você</h2>
             <div class="carta-box">
-
-                "Oi, meu amor. Você sabe que eu não sou muito bom escrevendo textos, mas isso não podia faltar, né?<br><br>"
-                "Queria fazer um presentinho pra ti, porque tu sempre faz pra mim. E não, não é porque tu brigou comigo kkkkk, eu já estava pensando nisso antes até de tu fazer um pra mim 😅<br><br>"
-
-                "O problema é que eu não sabia muito bem o que fazer, então decidi colocar um pouco de tudo. Espero que goste.<br><br>"
-
-                "Essa carta que tu abriu, a princípio, era pra ser uma declaração, mas tu sabe que eu não sou muito bom nisso, então segue lendo que talvez tu ache alguma ☺️<br><br>"
-
-                "Fiz bastante coisa pra você e deu bastante trabalho, então espero mesmo que goste.<br><br>"
-
-                "Te amo, minha princesa ❤️"
-
+                Oi, meu amor. Você sabe que eu não sou muito bom escrevendo textos, mas isso não podia faltar, né?<br><br>
+                Queria fazer um presentinho pra ti, porque tu sempre faz pra mim. E não, não é porque tu brigou comigo kkkkk, eu já estava pensando nisso antes até de tu fazer um pra mim 😅<br><br>
+                O problema é que eu não sabia muito bem o que fazer, então decidi colocar um pouco de tudo. Espero que goste.<br><br>
+                Essa carta que tu abriu, a princípio, era pra ser uma declaração, mas tu sabe que eu não sou muito bom nisso, então segue lendo que talvez tu ache alguma ☺️<br><br>
+                Fiz bastante coisa pra você e deu bastante trabalho, então espero mesmo que goste.<br><br>
+                Te amo, minha princesa ❤️
             </div>
-
         </section>
 
-        <!-- MÚSICA -->
+        <div class="divider"></div>
 
-        <section class="musica">
-
-            <h2>🎵 Nossa Música</h2>
-
-            <iframe
-            style="border-radius:12px"
-            src="https://open.spotify.com/embed/track/4HzEzvGHfTGEQnw8hd6L1W?utm_source=generator"
-            width="100%"
-            height="152"
-            frameborder="0"
-            allowfullscreen=""
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy">
-            </iframe>
-
+        <!-- JOGUINHO -->
+        <section id="joguinho">
+            <h2>🎮 <em>Joguinho</em> do Amor</h2>
+            <div class="surpresa-box">
+                <p class="jogo-desc">Fiz um joguinho especial pra você Princesa ❤️<br>Colete os corações e desvie dos corações quebrados 💕</p>
+                <a href="/game" class="jogo-btn">Jogar Agora ❤️</a>
+            </div>
         </section>
 
         <!-- FOOTER -->
-
-        <footer>
-
-            Feito com ❤️ especialmente para você
-
-        </footer>
+        <footer>Feito com ❤️ especialmente para você</footer>
 
     </div>
 
     <!-- BOTÃO TOPO -->
-
-    <button class="topo" id="btnTopo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        ↑
-    </button>
+    <button class="topo" id="btnTopo" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
     <script>
+        // ── BG ESTRELAS ──
+        const bgCanvas = document.getElementById('bgCanvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        function resizeBg() {
+            bgCanvas.width  = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+        }
+        resizeBg();
+        window.addEventListener('resize', resizeBg);
 
-        // PARTICULAS
+        const stars = Array.from({length: 140}, () => ({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            r: Math.random() * 1.4 + 0.3,
+            a: Math.random() * Math.PI * 2,
+            speed: Math.random() * 0.008 + 0.003
+        }));
 
+        (function animBg() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+            stars.forEach(s => {
+                s.a += s.speed;
+                const alpha = (Math.sin(s.a) * 0.5 + 0.5) * 0.5 + 0.08;
+                bgCtx.beginPath();
+                bgCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                bgCtx.fillStyle = `rgba(255,137,181,${alpha})`;
+                bgCtx.fill();
+            });
+            requestAnimationFrame(animBg);
+        })();
+
+        // ── PARTÍCULAS ──
         const particles = document.getElementById("particles");
-
-        for(let i = 0; i < 40; i++){
-
+        for (let i = 0; i < 30; i++) {
             const heart = document.createElement("div");
-
             heart.classList.add("heart");
-
             heart.innerHTML = "❤";
-
             heart.style.left = Math.random() * 100 + "vw";
-
-            heart.style.fontSize = Math.random() * 25 + 15 + "px";
-
-            heart.style.animationDuration = Math.random() * 10 + 8 + "s";
-
-            heart.style.animationDelay = Math.random() * 5 + "s";
-
+            heart.style.fontSize = Math.random() * 18 + 10 + "px";
+            heart.style.animationDuration = Math.random() * 12 + 10 + "s";
+            heart.style.animationDelay = Math.random() * 8 + "s";
             particles.appendChild(heart);
-
         }
 
-        // ENTRAR
-
-        function entrarSite(){
-
-            const intro = document.getElementById("intro");
-
-            const site = document.getElementById("siteConteudo");
-
+        // ── ENTRAR ──
+        function entrarSite() {
+            const intro  = document.getElementById("intro");
+            const site   = document.getElementById("siteConteudo");
             const musica = document.getElementById("musica");
-
-            musica.play();
-
+            musica.play().catch(() => {});
             intro.classList.add("sumir");
-
             setTimeout(() => {
-
                 intro.style.display = "none";
-
                 site.classList.remove("site-hidden");
-
                 site.classList.add("site-show");
-
             }, 1200);
-
         }
 
-        // CONTADOR
-
+        // ── CONTADOR ──
         const dataNamoro = new Date("2023-03-13 00:00:00");
-
-        function atualizarContador(){
-
-            const agora = new Date();
-
-            const diferenca = agora - dataNamoro;
-
-            const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
-
-            const horas = Math.floor((diferenca / (1000 * 60 * 60)) % 24);
-
-            const minutos = Math.floor((diferenca / 1000 / 60) % 60);
-
-            const segundos = Math.floor((diferenca / 1000) % 60);
-
-            document.getElementById("dias").innerText = dias;
-
-            document.getElementById("horas").innerText = horas;
-
-            document.getElementById("minutos").innerText = minutos;
-
-            document.getElementById("segundos").innerText = segundos;
-
+        function atualizarContador() {
+            const diff = new Date() - dataNamoro;
+            document.getElementById("dias").innerText     = Math.floor(diff / 86400000);
+            document.getElementById("horas").innerText    = Math.floor((diff / 3600000) % 24);
+            document.getElementById("minutos").innerText  = Math.floor((diff / 60000) % 60);
+            document.getElementById("segundos").innerText = Math.floor((diff / 1000) % 60);
         }
-
         setInterval(atualizarContador, 1000);
-
         atualizarContador();
 
-        // MOTIVOS
-
+        // ── MOTIVOS ──
         const motivos = [
-
             "Porque seu sorriso ilumina meus dias ❤️",
             "Porque você me faz feliz até nos dias difíceis ❤️",
             "Porque ao seu lado tudo fica melhor ❤️",
             "Porque você é minha pessoa favorita ❤️",
             "Porque eu amo cada detalhe seu ❤️"
-
         ];
-
-        function trocarMotivo(){
-
-            const motivo = document.getElementById("motivo");
-
-            const aleatorio = Math.floor(Math.random() * motivos.length);
-
-            motivo.innerText = motivos[aleatorio];
-
+        function trocarMotivo() {
+            const el = document.getElementById("motivo");
+            el.style.opacity = "0";
+            setTimeout(() => {
+                el.innerText = motivos[Math.floor(Math.random() * motivos.length)];
+                el.style.opacity = "1";
+            }, 300);
         }
 
-        // SURPRESA
-
-        function mostrarSurpresa(){
-
+        // ── SURPRESA ──
+        function mostrarSurpresa() {
             const surpresa = document.getElementById("surpresa");
-
-            const botao = document.querySelector(".surpresa-btn");
-
+            const botao    = document.querySelector(".surpresa-btn");
             surpresa.classList.toggle("show");
-
-            if(surpresa.classList.contains("show")){
-
-                botao.innerText = "Fechar Surpresa 💔";
-
-            }else{
-
-                botao.innerText = "Abrir Surpresa ✨";
-
-            }
-
+            botao.innerText = surpresa.classList.contains("show") ? "Fechar Surpresa 💔" : "Abrir Surpresa ✨";
         }
 
-        // BOTÃO TOPO
-
-        const btnTopo = document.getElementById("btnTopo");
-
+        // ── BOTÃO TOPO ──
         window.addEventListener("scroll", () => {
-
-            if(window.scrollY > 500){
-
-                btnTopo.classList.add("show");
-
-            }else{
-
-                btnTopo.classList.remove("show");
-
-            }
-
+            document.getElementById("btnTopo").classList.toggle("show", window.scrollY > 500);
         });
-
     </script>
-
 </body>
-
 </html>

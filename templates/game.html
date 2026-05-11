@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amor em Queda ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+        :root {
+            --rosa:   #ff4d8d;
+            --rosa2:  #ff89b5;
+            --rosa3:  #ffc2d9;
+            --escuro: #080810;
+            --card:   rgba(255,255,255,0.06);
+            --borda:  rgba(255,255,255,0.1);
+        }
+
+        body {
+            background: var(--escuro);
+            color: #fff;
+            font-family: 'DM Sans', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        #bgCanvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            padding: 20px;
+        }
+
+        /* ── VOLTAR ── */
+        .btn-voltar {
+            position: fixed;
+            top: 20px; left: 24px;
+            background: var(--card);
+            border: 1px solid var(--borda);
+            color: var(--rosa2);
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            backdrop-filter: blur(12px);
+            transition: background .3s, box-shadow .3s;
+            z-index: 999;
+        }
+        .btn-voltar:hover {
+            background: rgba(255,77,141,0.2);
+            box-shadow: 0 0 20px rgba(255,77,141,0.3);
+        }
+
+        /* ── SOM TOGGLE ── */
+        .btn-som {
+            position: fixed;
+            top: 20px; right: 24px;
+            background: var(--card);
+            border: 1px solid var(--borda);
+            color: var(--rosa2);
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            transition: background .3s, box-shadow .3s;
+            z-index: 999;
+        }
+        .btn-som:hover {
+            background: rgba(255,77,141,0.2);
+            box-shadow: 0 0 20px rgba(255,77,141,0.3);
+        }
+
+        /* ── TITLE ── */
+        .game-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            font-weight: 300;
+            color: #fff;
+            letter-spacing: .02em;
+            text-align: center;
+        }
+        .game-title em { color: var(--rosa2); font-style: italic; }
+
+        /* ── HUD ── */
+        .hud {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .hud-item {
+            background: var(--card);
+            border: 1px solid var(--borda);
+            border-radius: 16px;
+            padding: 12px 24px;
+            text-align: center;
+            min-width: 100px;
+            backdrop-filter: blur(12px);
+        }
+        .hud-val {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 34px;
+            font-weight: 300;
+            color: var(--rosa2);
+            line-height: 1;
+        }
+        .hud-label {
+            font-size: 11px;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            margin-top: 4px;
+        }
+        .vidas-display { display: flex; gap: 4px; font-size: 20px; justify-content: center; }
+
+        /* ── CANVAS ── */
+        #gameCanvas {
+            border-radius: 20px;
+            border: 1px solid var(--borda);
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(4px);
+            box-shadow: 0 0 60px rgba(255,77,141,0.12), 0 0 0 1px rgba(255,77,141,0.08);
+            display: block;
+            cursor: none;
+        }
+
+        /* ── MOBILE ── */
+        .controles-mobile {
+            display: none;
+            gap: 20px;
+        }
+        .btn-ctrl {
+            width: 72px; height: 72px;
+            border-radius: 50%;
+            background: var(--card);
+            border: 1px solid var(--borda);
+            color: var(--rosa2);
+            font-size: 28px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: background .2s, box-shadow .2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn-ctrl:active {
+            background: rgba(255,77,141,0.25);
+            box-shadow: 0 0 20px rgba(255,77,141,0.4);
+        }
+
+        /* ── OVERLAY ── */
+        .overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            background: rgba(8,8,16,0.82);
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
+            z-index: 10;
+        }
+        .overlay h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 300;
+            color: #fff;
+        }
+        .overlay h2 em { color: var(--rosa2); }
+        .overlay p {
+            font-size: 16px;
+            color: rgba(255,255,255,0.55);
+            text-align: center;
+            line-height: 1.7;
+            max-width: 340px;
+        }
+        .overlay .score-final {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            color: var(--rosa2);
+        }
+        .btn-play {
+            padding: 16px 52px;
+            border-radius: 60px;
+            border: 1.5px solid rgba(255,77,141,0.5);
+            background: linear-gradient(135deg, var(--rosa), var(--rosa2));
+            color: #fff;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 17px;
+            cursor: pointer;
+            transition: transform .3s, box-shadow .3s;
+        }
+        .btn-play:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 40px rgba(255,77,141,0.5);
+        }
+
+        .canvas-wrap { position: relative; }
+
+        .instrucoes {
+            font-size: 13px;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: .06em;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .controles-mobile { display: flex; }
+            .instrucoes { display: none; }
+            .game-title { font-size: 30px; }
+            #gameCanvas { width: 340px !important; height: 440px !important; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<a class="btn-voltar" href="/">← Voltar</a>
+<button class="btn-som" id="btnSom" onclick="toggleSom()">🔊 Som</button>
+
+<div class="wrapper">
+
+    <div class="game-title">Amor em <em>Queda</em> ❤️</div>
+
+    <div class="hud">
+        <div class="hud-item">
+            <div class="hud-val" id="hudPontos">0</div>
+            <div class="hud-label">Pontos</div>
+        </div>
+        <div class="hud-item">
+            <div class="hud-val" id="hudRecord">0</div>
+            <div class="hud-label">Recorde</div>
+        </div>
+        <div class="hud-item">
+            <div class="vidas-display" id="hudVidas">❤️❤️❤️</div>
+            <div class="hud-label">Vidas</div>
+        </div>
+        <div class="hud-item">
+            <div class="hud-val" id="hudNivel">1</div>
+            <div class="hud-label">Nível</div>
+        </div>
+    </div>
+
+    <div class="canvas-wrap">
+        <canvas id="gameCanvas" width="520" height="540"></canvas>
+
+        <div class="overlay" id="overlayInicio">
+            <h2>Amor em <em>Queda</em></h2>
+            <p>Colete os corações que caem do céu e desvie dos corações quebrados 💔<br><br>Use ← → ou toque nos botões para mover</p>
+            <button class="btn-play" onclick="iniciarJogo()">Começar ❤️</button>
+        </div>
+
+        <div class="overlay" id="overlayGameOver" style="display:none;">
+            <h2><em>Fim</em> do Jogo</h2>
+            <p class="score-final" id="textoFinal">Você coletou 0 corações</p>
+            <p id="msgFinal">Continue tentando, meu amor ❤️</p>
+            <button class="btn-play" onclick="iniciarJogo()">Tentar de Novo ❤️</button>
+        </div>
+    </div>
+
+    <div class="controles-mobile">
+        <button class="btn-ctrl" id="btnEsq">←</button>
+        <button class="btn-ctrl" id="btnDir">→</button>
+    </div>
+
+    <p class="instrucoes">Use ← → para mover · Espaço para pausar</p>
+
+</div>
+
+<script>
+// ══════════════════════════════════════════
+//   WEB AUDIO — EFEITOS SONOROS
+// ══════════════════════════════════════════
+let audioCtx = null;
+let somAtivado = true;
+
+function getAudioCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return audioCtx;
+}
+
+function toggleSom() {
+    somAtivado = !somAtivado;
+    document.getElementById('btnSom').textContent = somAtivado ? '🔊 Som' : '🔇 Mudo';
+}
+
+// Utilitário: cria oscilador simples com envelope ADSR
+function tocar(freq, tipo, duracao, vol, pitchFim) {
+    if (!somAtivado) return;
+    try {
+        const ctx  = getAudioCtx();
+        const osc  = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = tipo || 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        if (pitchFim) osc.frequency.linearRampToValueAtTime(pitchFim, ctx.currentTime + duracao);
+        gain.gain.setValueAtTime(0, ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(vol, ctx.currentTime + 0.01);
+        gain.gain.linearRampToValueAtTime(0, ctx.currentTime + duracao);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + duracao);
+    } catch(e) {}
+}
+
+// ── coração coletado: acordes ascendentes alegres
+function sfxColetarCoracao(pts) {
+    const base = 440 + pts * 6;
+    tocar(base,        'sine',     0.12, 0.22, base * 1.5);
+    setTimeout(() => tocar(base * 1.26, 'sine', 0.1,  0.18), 60);
+    setTimeout(() => tocar(base * 1.5,  'sine', 0.14, 0.15), 110);
+}
+
+// ── combo: acorde brilhante subindo
+function sfxCombo(comboN) {
+    const freqs = [523, 659, 784, 1047, 1319];
+    const n = Math.min(comboN - 1, freqs.length - 1);
+    for (let i = 0; i <= n; i++) {
+        setTimeout(() => tocar(freqs[i], 'triangle', 0.15, 0.2, freqs[i] * 1.1), i * 55);
+    }
+}
+
+// ── super combo: fanfarra
+function sfxSuperCombo() {
+    const seq = [523, 659, 784, 1047, 784, 1047, 1319];
+    seq.forEach((f, i) => setTimeout(() => tocar(f, 'triangle', 0.13, 0.28, f * 1.08), i * 60));
+}
+
+// ── dano: som grave descendente
+function sfxDano() {
+    tocar(220, 'sawtooth', 0.25, 0.3, 90);
+    setTimeout(() => tocar(110, 'sawtooth', 0.2, 0.18), 80);
+}
+
+// ── nível: fanfarra curta
+function sfxNivel() {
+    const seq = [523, 659, 784, 1047];
+    seq.forEach((f, i) => setTimeout(() => tocar(f, 'square', 0.1, 0.2), i * 80));
+    setTimeout(() => tocar(1047, 'sine', 0.3, 0.25, 1319), 340);
+}
+
+// ── game over: descida triste
+function sfxGameOver() {
+    const seq = [440, 370, 311, 261, 220];
+    seq.forEach((f, i) => setTimeout(() => tocar(f, 'triangle', 0.22, 0.28), i * 120));
+}
+
+// ── pausar: bip neutro
+function sfxPausa() {
+    tocar(660, 'sine', 0.08, 0.15);
+    setTimeout(() => tocar(440, 'sine', 0.08, 0.12), 90);
+}
+
+// ── iniciar: jingle de boas-vindas
+function sfxIniciar() {
+    const seq = [330, 392, 494, 659];
+    seq.forEach((f, i) => setTimeout(() => tocar(f, 'sine', 0.12, 0.2, f * 1.05), i * 90));
+}
+
+// ══════════════════════════════════════════
+//   BG ESTRELAS
+// ══════════════════════════════════════════
+const bgCanvas = document.getElementById('bgCanvas');
+const bgCtx = bgCanvas.getContext('2d');
+bgCanvas.width = window.innerWidth;
+bgCanvas.height = window.innerHeight;
+window.addEventListener('resize', () => {
+    bgCanvas.width  = window.innerWidth;
+    bgCanvas.height = window.innerHeight;
+});
+
+const stars = Array.from({length: 120}, () => ({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    r: Math.random() * 1.4 + 0.3,
+    a: Math.random(),
+    speed: Math.random() * 0.008 + 0.003
+}));
+
+(function animBg() {
+    bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+    stars.forEach(s => {
+        s.a += s.speed;
+        const alpha = (Math.sin(s.a) * 0.5 + 0.5) * 0.6 + 0.1;
+        bgCtx.beginPath();
+        bgCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        bgCtx.fillStyle = `rgba(255,137,181,${alpha})`;
+        bgCtx.fill();
+    });
+    requestAnimationFrame(animBg);
+})();
+
+// ══════════════════════════════════════════
+//   JOGO
+// ══════════════════════════════════════════
+const canvas = document.getElementById('gameCanvas');
+const ctx    = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height;
+
+let rodando = false, pausado = false;
+let pontos = 0, vidas = 3, nivel = 1, record = 0;
+let frameId;
+
+const jogador = {
+    x: W/2, y: H - 70,
+    w: 52, h: 52,
+    vel: 0, maxVel: 6, acel: 0.7, atrito: 0.82,
+    piscando: false, piscarTimer: 0
+};
+
+let coracoes = [], flechas = [], particulas = [], flocos = [];
+
+const keys = { left: false, right: false };
+document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft')  keys.left  = true;
+    if (e.key === 'ArrowRight') keys.right = true;
+    if (e.key === ' ') { e.preventDefault(); togglePausa(); }
+});
+document.addEventListener('keyup', e => {
+    if (e.key === 'ArrowLeft')  keys.left  = false;
+    if (e.key === 'ArrowRight') keys.right = false;
+});
+
+const btnEsq = document.getElementById('btnEsq');
+const btnDir = document.getElementById('btnDir');
+btnEsq.addEventListener('touchstart', e => { e.preventDefault(); keys.left = true; });
+btnEsq.addEventListener('touchend',   e => { e.preventDefault(); keys.left = false; });
+btnDir.addEventListener('touchstart', e => { e.preventDefault(); keys.right = true; });
+btnDir.addEventListener('touchend',   e => { e.preventDefault(); keys.right = false; });
+
+function togglePausa() {
+    if (!rodando) return;
+    pausado = !pausado;
+    sfxPausa();
+    if (!pausado) loop();
+}
+
+function iniciarJogo() {
+    // Inicializa o AudioContext no primeiro clique do usuário
+    getAudioCtx();
+    sfxIniciar();
+
+    document.getElementById('overlayInicio').style.display   = 'none';
+    document.getElementById('overlayGameOver').style.display = 'none';
+    pontos = 0; vidas = 3; nivel = 1;
+    jogador.x = W/2; jogador.vel = 0; jogador.piscando = false;
+    coracoes = []; flechas = []; particulas = []; flocos = [];
+    rodando = true; pausado = false;
+    cancelAnimationFrame(frameId);
+    atualizarHUD();
+    loop();
+}
+
+// ── SPAWNERS ──
+let tickCoracao = 0, tickFlecha = 0, tickFloco = 0;
+
+function spawnCoracao() {
+    const tipos = [
+        { emoji: '❤️', pts: 10, r: 22 },
+        { emoji: '💕', pts: 15, r: 20 },
+        { emoji: '💖', pts: 20, r: 22 },
+        { emoji: '🌹', pts: 25, r: 20 },
+        { emoji: '⭐', pts: 30, r: 18 },
+    ];
+    const t = tipos[Math.floor(Math.random() * tipos.length)];
+    coracoes.push({
+        x: Math.random() * (W - 60) + 30,
+        y: -30,
+        r: t.r,
+        emoji: t.emoji,
+        pts: t.pts,
+        vel: 1.5 + nivel * 0.4 + Math.random() * 0.8,
+        ang: 0, angVel: (Math.random() - 0.5) * 0.06,
+        escala: 1, escalaDir: 0.003
+    });
+}
+
+function spawnFlecha() {
+    flechas.push({
+        x: Math.random() * (W - 60) + 30,
+        y: -30,
+        r: 20,
+        vel: 2 + nivel * 0.5 + Math.random() * 1.2,
+        ang: 0, angVel: (Math.random() - 0.5) * 0.08
+    });
+}
+
+function spawnFloco() {
+    flocos.push({
+        x: Math.random() * W,
+        y: -10,
+        r: Math.random() * 3 + 1,
+        vel: Math.random() * 0.8 + 0.3,
+        alpha: Math.random() * 0.25 + 0.05,
+        drift: (Math.random() - 0.5) * 0.5
+    });
+}
+
+function spawnParticulas(x, y, cor) {
+    for (let i = 0; i < 14; i++) {
+        const ang = Math.random() * Math.PI * 2;
+        const spd = Math.random() * 4 + 1.5;
+        particulas.push({
+            x, y,
+            vx: Math.cos(ang) * spd,
+            vy: Math.sin(ang) * spd,
+            r: Math.random() * 5 + 2,
+            alpha: 1, cor,
+            emoji: Math.random() < 0.4 ? '❤' : null
+        });
+    }
+}
+
+// ── DESENHOS ──
+function desenharJogador() {
+    if (jogador.piscando && Math.floor(jogador.piscarTimer / 4) % 2 === 0) return;
+    ctx.save();
+    ctx.translate(jogador.x, jogador.y);
+    ctx.shadowColor = '#ff4d8d';
+    ctx.shadowBlur = 22;
+    ctx.font = '44px serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('💝', 0, 0);
+    const t = Date.now() / 800;
+    ctx.shadowBlur = 8;
+    ctx.font = '14px serif';
+    ctx.fillText('✨', Math.cos(t) * 28,           Math.sin(t) * 14 - 8);
+    ctx.fillText('✨', Math.cos(t + Math.PI) * 28, Math.sin(t + Math.PI) * 14 - 8);
+    ctx.restore();
+}
+
+function desenharCoracao(c) {
+    ctx.save();
+    ctx.translate(c.x, c.y);
+    ctx.rotate(c.ang);
+    ctx.scale(c.escala, c.escala);
+    ctx.shadowColor = '#ff89b5';
+    ctx.shadowBlur = 14;
+    ctx.font = `${c.r * 2}px serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(c.emoji, 0, 0);
+    ctx.restore();
+}
+
+function desenharFlecha(f) {
+    ctx.save();
+    ctx.translate(f.x, f.y);
+    ctx.rotate(f.ang);
+    ctx.shadowColor = '#888';
+    ctx.shadowBlur = 10;
+    ctx.font = `${f.r * 2}px serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('💔', 0, 0);
+    ctx.restore();
+}
+
+function desenharParticulas() {
+    particulas.forEach(p => {
+        ctx.save();
+        ctx.globalAlpha = p.alpha;
+        if (p.emoji) {
+            ctx.font = `${p.r * 2.5}px serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(p.emoji, p.x, p.y);
+        } else {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = p.cor;
+            ctx.fill();
+        }
+        ctx.restore();
+    });
+}
+
+function desenharFlocos() {
+    flocos.forEach(f => {
+        ctx.save();
+        ctx.globalAlpha = f.alpha;
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,137,181,1)';
+        ctx.fill();
+        ctx.restore();
+    });
+}
+
+function desenharFundo() {
+    const grad = ctx.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, 'rgba(20,10,30,0.98)');
+    grad.addColorStop(1, 'rgba(8,8,16,0.98)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = 'rgba(255,77,141,0.04)';
+    ctx.lineWidth = 1;
+    for (let x = 0; x < W; x += 40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+    for (let y = 0; y < H; y += 40) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+    const gradChao = ctx.createLinearGradient(0, H-3, 0, H);
+    gradChao.addColorStop(0, 'rgba(255,77,141,0.5)');
+    gradChao.addColorStop(1, 'rgba(255,77,141,0)');
+    ctx.fillStyle = gradChao;
+    ctx.fillRect(0, H-3, W, 3);
+    ctx.strokeStyle = 'rgba(255,77,141,0.12)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([8, 8]);
+    ctx.beginPath(); ctx.moveTo(0, H-50); ctx.lineTo(W, H-50); ctx.stroke();
+    ctx.setLineDash([]);
+}
+
+function desenharPausado() {
+    ctx.save();
+    ctx.fillStyle = 'rgba(8,8,16,0.75)';
+    ctx.fillRect(0, 0, W, H);
+    ctx.font = '300 48px Cormorant Garamond, serif';
+    ctx.fillStyle = 'rgba(255,137,181,0.9)';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('Pausado ❤️', W/2, H/2 - 14);
+    ctx.font = '14px DM Sans, sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.35)';
+    ctx.fillText('Pressione Espaço para continuar', W/2, H/2 + 30);
+    ctx.restore();
+}
+
+// ── COLISÃO ──
+function colidiu(a, bx, by, br) {
+    const dx = a.x - bx, dy = a.y - by;
+    return Math.sqrt(dx*dx + dy*dy) < (a.r||22) + br - 6;
+}
+
+// ── NÍVEL ──
+function checarNivel() {
+    const novoNivel = Math.floor(pontos / 150) + 1;
+    if (novoNivel > nivel) {
+        nivel = novoNivel;
+        sfxNivel();
+        mostrarMensagem(`Nível ${nivel}! 🌟`);
+    }
+}
+
+let mensagemAtual = null;
+function mostrarMensagem(txt) {
+    mensagemAtual = { txt, alpha: 1, y: H/2 - 60, timer: 90 };
+}
+function desenharMensagem() {
+    if (!mensagemAtual) return;
+    mensagemAtual.timer--;
+    mensagemAtual.y -= 0.5;
+    mensagemAtual.alpha = Math.min(1, mensagemAtual.timer / 30);
+    ctx.save();
+    ctx.globalAlpha = mensagemAtual.alpha;
+    ctx.font = 'italic 300 36px Cormorant Garamond, serif';
+    ctx.fillStyle = '#ffc2d9';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(mensagemAtual.txt, W/2, mensagemAtual.y);
+    ctx.restore();
+    if (mensagemAtual.timer <= 0) mensagemAtual = null;
+}
+
+// ── COMBO ──
+let combo = 0, comboTimer = 0;
+function desenharCombo() {
+    if (combo < 2) return;
+    comboTimer = Math.max(comboTimer - 1, 0);
+    if (comboTimer <= 0) { combo = 0; return; }
+    const alpha = Math.min(1, comboTimer / 30);
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.font = `500 ${18 + combo * 2}px DM Sans, sans-serif`;
+    ctx.fillStyle = '#ff89b5';
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'top';
+    ctx.fillText(`x${combo} combo! ❤`, W - 16, 16);
+    ctx.restore();
+}
+
+// ── GAME OVER ──
+function gameOver() {
+    rodando = false;
+    cancelAnimationFrame(frameId);
+    sfxGameOver();
+    if (pontos > record) record = pontos;
+    atualizarHUD();
+    const msgs = [
+        'Continue tentando, meu amor ❤️',
+        'Você é incrível, tente de novo! 💕',
+        'Quase lá, não desista! 🌹',
+        'Cada tentativa é uma vitória! 💖'
+    ];
+    document.getElementById('textoFinal').textContent = `Você coletou ${pontos} corações`;
+    document.getElementById('msgFinal').textContent   = msgs[Math.floor(Math.random() * msgs.length)];
+    document.getElementById('overlayGameOver').style.display = 'flex';
+}
+
+// ── HUD ──
+function atualizarHUD() {
+    document.getElementById('hudPontos').textContent = pontos;
+    document.getElementById('hudRecord').textContent = record;
+    document.getElementById('hudNivel').textContent  = nivel;
+    const vidasEl = document.getElementById('hudVidas');
+    vidasEl.textContent = '❤️'.repeat(Math.max(0, vidas)) + '🖤'.repeat(Math.max(0, 3 - vidas));
+}
+
+// ── LOOP ──
+let tick = 0;
+function loop() {
+    if (!rodando) return;
+    if (pausado) {
+        desenharFundo();
+        desenharFlocos();
+        desenharParticulas();
+        desenharJogador();
+        desenharPausado();
+        return;
+    }
+
+    tick++;
+    desenharFundo();
+
+    // Flocos
+    tickFloco++;
+    if (tickFloco % 4 === 0) spawnFloco();
+    flocos.forEach(f => { f.y += f.vel; f.x += f.drift; });
+    flocos = flocos.filter(f => f.y < H + 10);
+    desenharFlocos();
+
+    // Mover jogador
+    if (keys.left)  jogador.vel -= jogador.acel;
+    if (keys.right) jogador.vel += jogador.acel;
+    jogador.vel *= jogador.atrito;
+    jogador.vel = Math.max(-(jogador.maxVel + nivel*0.3), Math.min(jogador.maxVel + nivel*0.3, jogador.vel));
+    jogador.x  += jogador.vel;
+    jogador.x   = Math.max(30, Math.min(W - 30, jogador.x));
+
+    // Spawn
+    const intervaloC = Math.max(28, 60 - nivel * 5);
+    tickCoracao++;
+    if (tickCoracao % intervaloC === 0) spawnCoracao();
+
+    const intervaloF = Math.max(55, 120 - nivel * 8);
+    tickFlecha++;
+    if (tickFlecha % intervaloF === 0) spawnFlecha();
+
+    // Atualizar posições
+    coracoes.forEach(c => {
+        c.y += c.vel; c.ang += c.angVel;
+        c.escala += c.escalaDir;
+        if (c.escala > 1.12 || c.escala < 0.88) c.escalaDir *= -1;
+    });
+    flechas.forEach(f => { f.y += f.vel; f.ang += f.angVel; });
+
+    // Colisões
+    if (!jogador.piscando) {
+        coracoes = coracoes.filter(c => {
+            if (colidiu(jogador, c.x, c.y, c.r)) {
+                const bonus = combo >= 3 ? 2 : 1;
+                pontos += c.pts * bonus;
+                combo++;
+                comboTimer = 80;
+                spawnParticulas(c.x, c.y, '#ff89b5');
+
+                // Efeitos sonoros por tipo de coleta
+                if (combo >= 5) {
+                    sfxSuperCombo();
+                    mostrarMensagem(`SUPER COMBO x${combo}! 💖`);
+                } else if (combo >= 3) {
+                    sfxCombo(combo);
+                    mostrarMensagem(`Combo x${combo}! 💕`);
+                } else {
+                    sfxColetarCoracao(c.pts);
+                    mostrarMensagem(`+${c.pts * bonus}`);
+                }
+
+                checarNivel();
+                atualizarHUD();
+                return false;
+            }
+            if (c.y > H + 30) { combo = 0; return false; }
+            return true;
+        });
+
+        flechas = flechas.filter(f => {
+            if (colidiu(jogador, f.x, f.y, f.r)) {
+                vidas--;
+                combo = 0;
+                jogador.piscando = true;
+                jogador.piscarTimer = 90;
+                spawnParticulas(jogador.x, jogador.y, '#888');
+                sfxDano();
+                atualizarHUD();
+                if (vidas <= 0) { gameOver(); return false; }
+                return false;
+            }
+            if (f.y > H + 30) return false;
+            return true;
+        });
+    }
+
+    // Piscar
+    if (jogador.piscando) {
+        jogador.piscarTimer--;
+        if (jogador.piscarTimer <= 0) jogador.piscando = false;
+    }
+
+    // Partículas
+    particulas.forEach(p => {
+        p.x += p.vx; p.y += p.vy;
+        p.vy += 0.12; p.vx *= 0.97;
+        p.alpha -= 0.028; p.r *= 0.97;
+    });
+    particulas = particulas.filter(p => p.alpha > 0.02);
+
+    // Desenhar tudo
+    coracoes.forEach(desenharCoracao);
+    flechas.forEach(desenharFlecha);
+    desenharParticulas();
+    desenharJogador();
+    desenharMensagem();
+    desenharCombo();
+
+    frameId = requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>
