@@ -1,166 +1,484 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Os Rabugentos</title>
+
+    <title>Nossa História ❤️</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <header>
-        <div class="logo">
-            🚗 OS RABUGENTOS
-        </div>
+    <!-- PARTICULAS -->
 
-        <nav>
-            <a href="#sobre">Sobre</a>
-            <a href="#eventos">Eventos</a>
-            <a href="#galeria">Galeria</a>
-            <a href="#contato">Contato</a>
-        </nav>
-    </header>
+    <div class="particles" id="particles"></div>
 
-    <!-- HERO -->
+    <!-- INTRO -->
 
-    <section class="hero">
+    <div id="intro" class="intro">
 
-        <div class="overlay"></div>
+        <div class="intro-content">
 
-        <div class="hero-content">
+            <h1>❤️</h1>
 
-            <h1>
-                ENCONTRO DE<br>
-                CARROS ANTIGOS
-            </h1>
+            <h2>Nossa História</h2>
 
             <p>
-                Clássicos • Rock • Gincanas • Cultura Automotiva
+                Um lugar cheio das nossas memórias
             </p>
 
-            <div class="hero-buttons">
-                <a href="#eventos" class="btn">
-                    Próximo Evento
-                </a>
-
-                <a href="#galeria" class="btn btn-dark">
-                    Ver Galeria
-                </a>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- SOBRE -->
-
-    <section id="sobre">
-
-        <h2>🔥 O GRUPO</h2>
-
-        <div class="cards">
-
-            <div class="card">
-                <h3>🏆 Gincanas</h3>
-
-                <p>
-                    Competições e desafios entre os participantes dos encontros.
-                </p>
-            </div>
-
-            <div class="card">
-                <h3>🎸 Rock Ao Vivo</h3>
-
-                <p>
-                    Shows e bandas para animar os eventos dos Rabugentos.
-                </p>
-            </div>
-
-            <div class="card">
-                <h3>🚘 Carros Clássicos</h3>
-
-                <p>
-                    Exposição de carros antigos vindos de diversas cidades.
-                </p>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- EVENTO -->
-
-    <section id="eventos" class="eventos">
-
-        <h2>🏁 PRÓXIMO EVENTO</h2>
-
-        <div class="evento-box">
-
-            <h3>Encontro Os Rabugentos 2026</h3>
-
-            <p>📍 Rosário do Sul - RS</p>
-
-            <p>📅 Em breve</p>
-
-            <p>
-                🎵 Rock • 🚗 Exposição • 🏆 Premiações • 🍔 Praça de alimentação
-            </p>
-
-            <button>
-                Fazer Inscrição
+            <button onclick="entrarSite()">
+                Entrar ✨
             </button>
 
         </div>
 
-    </section>
+    </div>
 
-    <!-- GALERIA -->
+    <!-- AUDIO -->
 
-    <section id="galeria">
+    <audio id="musica" loop>
 
-        <h2>📸 GALERIA</h2>
+        <source src="{{ url_for('static', filename='audio/musica.mp3') }}" type="audio/mp3">
 
-        <div class="galeria-grid">
+    </audio>
 
-            <div class="foto">🚘</div>
-            <div class="foto">🔥</div>
-            <div class="foto">🎸</div>
-            <div class="foto">🏁</div>
-            <div class="foto">🚗</div>
-            <div class="foto">🏆</div>
+    <!-- SITE -->
 
-        </div>
+    <div id="siteConteudo" class="site-hidden">
 
-    </section>
+        <!-- HEADER -->
 
-    <!-- CONTATO -->
+        <header>
 
-    <section id="contato" class="contato">
+            <div class="logo">
+                ❤️ Nós Dois
+            </div>
 
-        <h2>📱 ENTRE EM CONTATO</h2>
+            <nav>
 
-        <p>
-            Quer participar do próximo encontro dos Rabugentos?
-        </p>
+                <a href="#inicio">Início</a>
 
-        <a class="whatsapp" href="#">
-            Entrar em Contato
-        </a>
+                <a href="#contador">Tempo</a>
 
-    </section>
+                <a href="#historia">História</a>
 
-    <!-- FOOTER -->
+                <a href="#galeria">Fotos</a>
 
-    <footer>
+                <a href="#carta">Carta</a>
 
-        © 2026 - Os Rabugentos | Rosário do Sul - RS
+            </nav>
 
-    </footer>
+        </header>
+
+        <!-- HERO -->
+
+        <section id="inicio" class="hero">
+
+            <div class="hero-content">
+
+                <h1>
+                    Você é minha<br>
+                    melhor escolha ❤️
+                </h1>
+
+                <p>
+                    Cada segundo ao seu lado virou uma lembrança inesquecível.
+                </p>
+
+                <a href="#contador" class="btn">
+                    Ver Nossa História
+                </a>
+
+            </div>
+
+        </section>
+
+        <!-- CONTADOR -->
+
+        <section id="contador">
+
+            <h2>⏳ Nosso Tempo Juntos</h2>
+
+            <div class="contador-box">
+
+                <div class="tempo">
+                    <span id="dias">0</span>
+                    <small>Dias</small>
+                </div>
+
+                <div class="tempo">
+                    <span id="horas">0</span>
+                    <small>Horas</small>
+                </div>
+
+                <div class="tempo">
+                    <span id="minutos">0</span>
+                    <small>Minutos</small>
+                </div>
+
+                <div class="tempo">
+                    <span id="segundos">0</span>
+                    <small>Segundos</small>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- HISTÓRIA -->
+
+        <section id="historia">
+
+            <h2>✨ Nossa História</h2>
+
+            <div class="timeline">
+
+                <div class="momento">
+
+                    <h3>💌 Quando nos conhecemos</h3>
+
+                    <p>
+                        O início da melhor parte da minha vida.
+                    </p>
+
+                </div>
+
+                <div class="momento">
+
+                    <h3>🌹 Primeiro encontro</h3>
+
+                    <p>
+                        Um momento simples que se tornou inesquecível.
+                    </p>
+
+                </div>
+
+                <div class="momento">
+
+                    <h3>❤️ Nosso amor</h3>
+
+                    <p>
+                        Todos os dias ao seu lado fazem tudo valer a pena.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- GALERIA -->
+
+        <section id="galeria">
+
+            <h2>📸 Nossos Momentos</h2>
+
+            <div class="galeria-grid">
+
+                <div class="foto">
+                    <img src="/static/img/f1.jpeg">
+                </div>
+
+                <div class="foto">
+                    <img src="/static/img/f5.jpeg">
+                </div>
+
+                <div class="foto">
+                    <img src="/static/img/f3.jpeg">
+                </div>
+
+                <div class="foto">
+                    <img src="/static/img/f4.jpeg">
+                </div>
+
+                <div class="foto">
+                    <img src="/static/img/f6.jpeg">
+                </div>
+
+                <div class="foto">
+                    <img src="/static/img/f7.jpeg">
+                </div>
+
+                <div class="foto">
+                    <img src="/static/img/f8.jpeg">
+                </div>
+
+                <div class="foto">
+                    <img src="/static/img/f9.jpeg">
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- MOTIVOS -->
+
+        <section>
+
+            <h2>💖 Motivos pelos quais eu te amo</h2>
+
+            <div class="motivo-box">
+
+                <p id="motivo">
+                    Porque seu sorriso ilumina meus dias ❤️
+                </p>
+
+                <button onclick="trocarMotivo()">
+                    Mostrar Outro ❤️
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- SURPRESA -->
+
+        <section>
+
+            <h2>🎁 Uma surpresa</h2>
+
+            <div class="surpresa-box">
+
+                <button class="surpresa-btn" onclick="mostrarSurpresa()">
+                    Abrir Surpresa ✨
+                </button>
+
+                <div id="surpresa" class="mensagem-surpresa">
+
+                    <h3 style="margin-bottom:20px;color:#ff4d8d;font-size:32px;">
+                        Eu te amo ❤️
+                    </h3>
+
+                    <p style="font-size:20px;line-height:35px;color:#ddd;">
+                        Não importa quanto tempo passe, você sempre vai ser
+                        a melhor parte dos meus dias.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CARTA -->
+
+        <section id="carta">
+
+            <h2>💌 Uma carta para você</h2>
+
+            <div class="carta-box">
+
+                "Oi, meu amor. Você sabe que eu não sou muito bom escrevendo textos, mas isso não podia faltar, né?<br><br>"
+                "Queria fazer um presentinho pra ti, porque tu sempre faz pra mim. E não, não é porque tu brigou comigo kkkkk, eu já estava pensando nisso antes até de tu fazer um pra mim 😅<br><br>"
+
+                "O problema é que eu não sabia muito bem o que fazer, então decidi colocar um pouco de tudo. Espero que goste.<br><br>"
+
+                "Essa carta que tu abriu, a princípio, era pra ser uma declaração, mas tu sabe que eu não sou muito bom nisso, então segue lendo que talvez tu ache alguma ☺️<br><br>"
+
+                "Fiz bastante coisa pra você e deu bastante trabalho, então espero mesmo que goste.<br><br>"
+
+                "Te amo, minha princesa ❤️"
+
+            </div>
+
+        </section>
+
+        <!-- MÚSICA -->
+
+        <section class="musica">
+
+            <h2>🎵 Nossa Música</h2>
+
+            <iframe
+            style="border-radius:12px"
+            src="https://open.spotify.com/embed/track/4HzEzvGHfTGEQnw8hd6L1W?utm_source=generator"
+            width="100%"
+            height="152"
+            frameborder="0"
+            allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy">
+            </iframe>
+
+        </section>
+
+        <!-- FOOTER -->
+
+        <footer>
+
+            Feito com ❤️ especialmente para você
+
+        </footer>
+
+    </div>
+
+    <!-- BOTÃO TOPO -->
+
+    <button class="topo" id="btnTopo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        ↑
+    </button>
+
+    <script>
+
+        // PARTICULAS
+
+        const particles = document.getElementById("particles");
+
+        for(let i = 0; i < 40; i++){
+
+            const heart = document.createElement("div");
+
+            heart.classList.add("heart");
+
+            heart.innerHTML = "❤";
+
+            heart.style.left = Math.random() * 100 + "vw";
+
+            heart.style.fontSize = Math.random() * 25 + 15 + "px";
+
+            heart.style.animationDuration = Math.random() * 10 + 8 + "s";
+
+            heart.style.animationDelay = Math.random() * 5 + "s";
+
+            particles.appendChild(heart);
+
+        }
+
+        // ENTRAR
+
+        function entrarSite(){
+
+            const intro = document.getElementById("intro");
+
+            const site = document.getElementById("siteConteudo");
+
+            const musica = document.getElementById("musica");
+
+            musica.play();
+
+            intro.classList.add("sumir");
+
+            setTimeout(() => {
+
+                intro.style.display = "none";
+
+                site.classList.remove("site-hidden");
+
+                site.classList.add("site-show");
+
+            }, 1200);
+
+        }
+
+        // CONTADOR
+
+        const dataNamoro = new Date("2023-03-13 00:00:00");
+
+        function atualizarContador(){
+
+            const agora = new Date();
+
+            const diferenca = agora - dataNamoro;
+
+            const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+
+            const horas = Math.floor((diferenca / (1000 * 60 * 60)) % 24);
+
+            const minutos = Math.floor((diferenca / 1000 / 60) % 60);
+
+            const segundos = Math.floor((diferenca / 1000) % 60);
+
+            document.getElementById("dias").innerText = dias;
+
+            document.getElementById("horas").innerText = horas;
+
+            document.getElementById("minutos").innerText = minutos;
+
+            document.getElementById("segundos").innerText = segundos;
+
+        }
+
+        setInterval(atualizarContador, 1000);
+
+        atualizarContador();
+
+        // MOTIVOS
+
+        const motivos = [
+
+            "Porque seu sorriso ilumina meus dias ❤️",
+            "Porque você me faz feliz até nos dias difíceis ❤️",
+            "Porque ao seu lado tudo fica melhor ❤️",
+            "Porque você é minha pessoa favorita ❤️",
+            "Porque eu amo cada detalhe seu ❤️"
+
+        ];
+
+        function trocarMotivo(){
+
+            const motivo = document.getElementById("motivo");
+
+            const aleatorio = Math.floor(Math.random() * motivos.length);
+
+            motivo.innerText = motivos[aleatorio];
+
+        }
+
+        // SURPRESA
+
+        function mostrarSurpresa(){
+
+            const surpresa = document.getElementById("surpresa");
+
+            const botao = document.querySelector(".surpresa-btn");
+
+            surpresa.classList.toggle("show");
+
+            if(surpresa.classList.contains("show")){
+
+                botao.innerText = "Fechar Surpresa 💔";
+
+            }else{
+
+                botao.innerText = "Abrir Surpresa ✨";
+
+            }
+
+        }
+
+        // BOTÃO TOPO
+
+        const btnTopo = document.getElementById("btnTopo");
+
+        window.addEventListener("scroll", () => {
+
+            if(window.scrollY > 500){
+
+                btnTopo.classList.add("show");
+
+            }else{
+
+                btnTopo.classList.remove("show");
+
+            }
+
+        });
+
+    </script>
 
 </body>
+
 </html>
