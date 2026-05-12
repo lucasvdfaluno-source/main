@@ -863,3 +863,59 @@ footer {
     opacity: 0.9;
 }
 
+/* =========================================
+   CINEMA
+   ========================================= */
+
+.cinema-box{
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--card);
+    border: 1px solid var(--borda);
+    border-radius: 28px;
+    padding: 40px;
+    text-align: center;
+    backdrop-filter: blur(12px);
+
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    transition: .4s;
+}
+
+.cinema-box:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(255, 77, 141, 0.15);
+    border-color: rgba(255, 77, 141, 0.25);
+}
+
+.video-cinema{
+    width: 100%;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+}
+
+.play-btn{
+    align-self: center;
+
+    padding: 16px 52px;
+    border: 1.5px solid rgba(255, 77, 141, 0.5);
+    border-radius: 60px;
+
+    background: linear-gradient(135deg, var(--rosa), var(--rosa2));
+
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: transform .3s, box-shadow .3s;
+}
+
+.play-btn:hover{
+    transform: scale(1.07);
+    box-shadow: 0 0 44px rgba(255, 77, 141, 0.55);
+}

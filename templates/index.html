@@ -196,6 +196,26 @@
 
         <div class="divider"></div>
 
+        <!-- CINEMA -->
+        <section id="cinema">
+            <h2>🎬 Nosso <em>Cinema</em></h2>
+
+            <div class="cinema-box">
+
+                <video id="videoCinema" class="video-cinema" controls>
+                    <source src="/static/video/v1.mp4" type="video/mp4">
+                    Seu navegador não suporta vídeo.
+                </video>
+
+                <button class="play-btn" onclick="tocarVideo()">
+                    ▶ Play
+                </button>
+
+            </div>
+        </section>
+
+        <div class="divider"></div>
+        
         <!-- JOGUINHO -->
         <section id="joguinho">
             <h2>🎮 <em>Joguinho</em> do Amor</h2>
@@ -374,6 +394,18 @@
         window.addEventListener("scroll", () => {
             document.getElementById("btnTopo").classList.toggle("show", window.scrollY > 500);
         });
+
+                // ── CINEMA ──
+        function tocarVideo() {
+            const video = document.getElementById("videoCinema");
+
+            video.play();
+
+            video.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }
     </script>
 
 </body>
