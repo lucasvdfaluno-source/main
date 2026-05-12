@@ -11,6 +11,10 @@
 </head>
 <body>
 
+    <!-- CURSOR PERSONALIZADO -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+
     <!-- BG ESTRELAS -->
     <canvas id="bgCanvas"></canvas>
 
@@ -20,7 +24,7 @@
     <!-- INTRO -->
     <div id="intro">
         <div class="intro-content">
-            <h1>❤️</h1>
+            <div class="intro-emoji-anim" id="introEmoji">❤️</div>
             <h2>Nossa <em>História</em></h2>
             <p>Um lugar cheio das nossas memórias</p>
             <button onclick="entrarSite()">Entrar ✨</button>
@@ -35,24 +39,53 @@
     <!-- SITE -->
     <div id="siteConteudo" class="site-hidden">
 
+        <!-- OVERLAY DRAWER -->
+        <div class="drawer-overlay" id="drawerOverlay" onclick="fecharDrawer()"></div>
+
+        <!-- DRAWER MOBILE -->
+        <div class="nav-drawer" id="navDrawer">
+            <button class="fechar-drawer" onclick="fecharDrawer()">✕</button>
+            <a href="#inicio"     onclick="fecharDrawer()">Início</a>
+            <a href="#contador"   onclick="fecharDrawer()">Tempo</a>
+            <a href="#stats"      onclick="fecharDrawer()">Estatísticas</a>
+            <a href="#historia"   onclick="fecharDrawer()">História</a>
+            <a href="#galeria"    onclick="fecharDrawer()">Fotos</a>
+            <a href="#calendario" onclick="fecharDrawer()">Datas</a>
+            <a href="#carta"      onclick="fecharDrawer()">Carta</a>
+            <a href="#mural"      onclick="fecharDrawer()">Mural</a>
+            <a href="#cinema"     onclick="fecharDrawer()">Cinema</a>
+            <a href="#joguinho"   onclick="fecharDrawer()">Joguinho</a>
+        </div>
+
         <!-- HEADER -->
-        <header>
+        <header id="mainHeader">
             <div class="logo">❤️ Nós Dois</div>
             <nav>
                 <a href="#inicio">Início</a>
                 <a href="#contador">Tempo</a>
+                <a href="#stats">Stats</a>
                 <a href="#historia">História</a>
                 <a href="#galeria">Fotos</a>
+                <a href="#calendario">Datas</a>
                 <a href="#carta">Carta</a>
+                <a href="#mural">Mural</a>
+                <a href="#cinema">Cinema</a>
+                <a href="#joguinho">Joguinho</a>
             </nav>
+            <button class="menu-toggle" onclick="abrirDrawer()">☰</button>
         </header>
 
         <!-- HERO -->
         <section id="inicio">
-            <div class="hero-content">
+            <div class="hero-bg-parallax" id="heroBg"></div>
+            <div class="hero-content reveal">
+                <div class="hero-badge">💕 Desde 13 de Março de 2023</div>
                 <h1>Você é minha<br><em>melhor escolha</em> ❤️</h1>
                 <p>Cada segundo ao seu lado virou uma lembrança inesquecível.</p>
-                <a href="#contador" class="btn">Ver Nossa História</a>
+                <div class="hero-btns">
+                    <a href="#contador" class="btn">Ver Nossa História</a>
+                    <button class="btn btn-outline" onclick="mostrarEasterEgg()">✨ Surpresa</button>
+                </div>
                 <div class="musica">
                     <iframe
                         style="border-radius:12px"
@@ -68,39 +101,86 @@
 
         <div class="divider"></div>
 
-                <!-- CONTADOR -->
+        <!-- CONTADOR -->
         <section id="contador">
-            <h2>⏳ Nosso <em>Tempo</em> Juntos</h2>
-
-            <div class="contador-box">
+            <h2 class="reveal">⏳ Nosso <em>Tempo</em> Juntos</h2>
+            <div class="contador-box reveal">
+                <div class="tempo"><span id="anos">0</span><small>Anos</small></div>
+                <div class="tempo"><span id="meses">0</span><small>Meses</small></div>
                 <div class="tempo"><span id="dias">0</span><small>Dias</small></div>
                 <div class="tempo"><span id="horas">0</span><small>Horas</small></div>
                 <div class="tempo"><span id="minutos">0</span><small>Minutos</small></div>
                 <div class="tempo"><span id="segundos">0</span><small>Segundos</small></div>
             </div>
+            <p class="frase-contador reveal">A cada segundo que passa eu te amo ainda mais ❤️</p>
 
-            <!-- FRASE -->
-            <p class="frase-contador">
-                A cada segundo que passa eu te amo ainda mais ❤️
-            </p>
+            <!-- PRÓXIMO ANIVERSÁRIO -->
+            <div class="proximo-aniversario reveal" id="proximoAniv">
+                <span class="aniv-icone">🎂</span>
+                <div>
+                    <p class="aniv-label">Próximo aniversário de namoro</p>
+                    <p class="aniv-dias" id="diasAniversario">em ... dias</p>
+                </div>
+            </div>
+        </section>
 
+        <div class="divider"></div>
+
+        <!-- ESTATÍSTICAS -->
+        <section id="stats">
+            <h2 class="reveal">📊 Nossas <em>Estatísticas</em></h2>
+            <div class="stats-grid reveal">
+                <div class="stat-card">
+                    <div class="stat-icon">💋</div>
+                    <div class="stat-val" id="statBeijos">0</div>
+                    <div class="stat-label">Beijos estimados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🌙</div>
+                    <div class="stat-val" id="statNoites">0</div>
+                    <div class="stat-label">Noites juntos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💬</div>
+                    <div class="stat-val" id="statMensagens">0</div>
+                    <div class="stat-label">Mensagens trocadas (est.)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">❤️</div>
+                    <div class="stat-val" id="statBatidas">0</div>
+                    <div class="stat-label">Batidas do coração por você</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🍔</div>
+                    <div class="stat-val" id="statCafes">0</div>
+                    <div class="stat-label">Besteiras (est.)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🌅</div>
+                    <div class="stat-val" id="statManhas">0</div>
+                    <div class="stat-label">Manhãs ao seu lado</div>
+                </div>
+            </div>
         </section>
 
         <div class="divider"></div>
 
         <!-- HISTÓRIA -->
         <section id="historia">
-            <h2>✨ Nossa <em>História</em></h2>
+            <h2 class="reveal">✨ Nossa <em>História</em></h2>
             <div class="timeline">
-                <div class="momento">
+                <div class="momento reveal">
+                    <div class="momento-data">Mar 2023</div>
                     <h3>💌 Quando nos conhecemos</h3>
                     <p>O início da melhor parte da minha vida.</p>
                 </div>
-                <div class="momento">
+                <div class="momento reveal">
+                    <div class="momento-data">2023</div>
                     <h3>🌹 Primeiro beijo</h3>
                     <p>Um momento simples que se tornou inesquecível.</p>
                 </div>
-                <div class="momento">
+                <div class="momento reveal">
+                    <div class="momento-data">Hoje</div>
                     <h3>❤️ Nosso amor</h3>
                     <p>Todos os dias ao seu lado fazem tudo valer a pena.</p>
                 </div>
@@ -111,16 +191,34 @@
 
         <!-- GALERIA -->
         <section id="galeria">
-            <h2>📸 Nossos <em>Momentos</em></h2>
-            <div class="galeria-grid">
-                <div class="foto"><img src="/static/img/f1.jpeg" alt=""></div>
-                <div class="foto"><img src="/static/img/f5.jpeg" alt=""></div>
-                <div class="foto"><img src="/static/img/f3.jpeg" alt=""></div>
-                <div class="foto"><img src="/static/img/f4.jpeg" alt=""></div>
-                <div class="foto"><img src="/static/img/f6.jpeg" alt=""></div>
-                <div class="foto"><img src="/static/img/f7.jpeg" alt=""></div>
-                <div class="foto"><img src="/static/img/f8.jpeg" alt=""></div>
-                <div class="foto"><img src="/static/img/f9.jpeg" alt=""></div>
+            <h2 class="reveal">📸 Nossos <em>Momentos</em></h2>
+            <div class="galeria-grid reveal">
+                <div class="foto" onclick="abrirLightbox('/static/img/f1.jpeg', 0)"><img src="/static/img/f1.jpeg" alt=""><div class="foto-overlay"><span>❤️</span></div></div>
+                <div class="foto" onclick="abrirLightbox('/static/img/f5.jpeg', 1)"><img src="/static/img/f5.jpeg" alt=""><div class="foto-overlay"><span>💕</span></div></div>
+                <div class="foto" onclick="abrirLightbox('/static/img/f3.jpeg', 2)"><img src="/static/img/f3.jpeg" alt=""><div class="foto-overlay"><span>🌹</span></div></div>
+                <div class="foto" onclick="abrirLightbox('/static/img/f4.jpeg', 3)"><img src="/static/img/f4.jpeg" alt=""><div class="foto-overlay"><span>✨</span></div></div>
+                <div class="foto" onclick="abrirLightbox('/static/img/f6.jpeg', 4)"><img src="/static/img/f6.jpeg" alt=""><div class="foto-overlay"><span>💖</span></div></div>
+                <div class="foto" onclick="abrirLightbox('/static/img/f7.jpeg', 5)"><img src="/static/img/f7.jpeg" alt=""><div class="foto-overlay"><span>🥰</span></div></div>
+                <div class="foto" onclick="abrirLightbox('/static/img/f8.jpeg', 6)"><img src="/static/img/f8.jpeg" alt=""><div class="foto-overlay"><span>💫</span></div></div>
+                <div class="foto" onclick="abrirLightbox('/static/img/f9.jpeg', 7)"><img src="/static/img/f9.jpeg" alt=""><div class="foto-overlay"><span>💝</span></div></div>
+            </div>
+        </section>
+
+        <!-- LIGHTBOX -->
+        <div id="lightbox" class="lightbox" onclick="fecharLightbox()">
+            <button class="lb-fechar" onclick="fecharLightbox()">✕</button>
+            <button class="lb-nav lb-prev" onclick="lbNav(-1, event)">‹</button>
+            <button class="lb-nav lb-next" onclick="lbNav(1, event)">›</button>
+            <img id="lbImg" src="" alt="">
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- CALENDÁRIO DE DATAS ESPECIAIS -->
+        <section id="calendario">
+            <h2 class="reveal">📅 Datas <em>Especiais</em></h2>
+            <div class="datas-grid reveal" id="datasGrid">
+                <!-- preenchido pelo JS -->
             </div>
         </section>
 
@@ -128,10 +226,49 @@
 
         <!-- MOTIVOS -->
         <section>
-            <h2>💖 Motivos pelos quais <em>eu te amo</em></h2>
-            <div class="motivo-box">
-                <p id="motivo">Porque seu sorriso ilumina meus dias ❤️</p>
-                <button onclick="trocarMotivo()">Mostrar Outro ❤️</button>
+            <h2 class="reveal">💖 Por que eu te <em>amo</em></h2>
+            <div class="motivo-box reveal">
+                <div class="motivo-card">
+                    <p id="motivo">Porque seu sorriso ilumina meus dias ❤️</p>
+                </div>
+                <div class="motivo-controles">
+                    <button onclick="trocarMotivo()" class="btn-motivo">Próximo ❤️</button>
+                    <span class="motivo-counter" id="motivoCounter">1 / 13</span>
+                </div>
+                <div class="motivo-progress" id="motivoProgress">
+                    <!-- dots preenchidos pelo JS -->
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- TARÔ DO AMOR -->
+        <section id="taro">
+            <h2 class="reveal">🔮 <em>Tarô</em> do Amor</h2>
+            <div class="taro-box reveal">
+                <p class="taro-desc">Pergunte algo ao universo sobre o nosso amor e vire a carta ✨</p>
+                <div class="taro-cartas" id="taroCartas">
+                    <div class="taro-carta" onclick="virarCarta(0)">
+                        <div class="carta-inner">
+                            <div class="carta-frente">❤️</div>
+                            <div class="carta-verso" id="taroVerso0"></div>
+                        </div>
+                    </div>
+                    <div class="taro-carta" onclick="virarCarta(1)">
+                        <div class="carta-inner">
+                            <div class="carta-frente">💕</div>
+                            <div class="carta-verso" id="taroVerso1"></div>
+                        </div>
+                    </div>
+                    <div class="taro-carta" onclick="virarCarta(2)">
+                        <div class="carta-inner">
+                            <div class="carta-frente">🌹</div>
+                            <div class="carta-verso" id="taroVerso2"></div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-taro-reset" onclick="resetarTaro()">Embaralhar de Novo 🔮</button>
             </div>
         </section>
 
@@ -139,58 +276,66 @@
 
         <!-- SURPRESA -->
         <section>
-            <h2>🎁 Uma <em>surpresa</em></h2>
-
-            <div class="surpresa-box">
-
-                <button class="surpresa-btn" onclick="mostrarSurpresa()">
-                    Abrir Surpresa ✨
-                </button>
-
+            <h2 class="reveal">🎁 Uma <em>Surpresa</em></h2>
+            <div class="surpresa-box reveal">
+                <button class="surpresa-btn" onclick="mostrarSurpresa()">Abrir Surpresa ✨</button>
                 <div id="surpresa" class="mensagem-surpresa">
-
                     <h3>Eu te amo ❤️</h3>
-
-                    <p>
-                        Não importa quanto tempo passe,
-                        você sempre vai ser a melhor parte dos meus dias.
-                    </p>
-
-                    <!-- IMAGEM -->
+                    <p>Não importa quanto tempo passe, você sempre vai ser a melhor parte dos meus dias.</p>
                     <img id="fotoSurpresa" src="/static/img/f20.png" alt="Foto romântica">
-
-                    <!-- BOTÕES -->
                     <div class="controle-fotos">
-
-                        <button onclick="fotoAnterior()">
-                            ⬅
-                        </button>
-
-                        <button onclick="proximaFoto()">
-                            ➡
-                        </button>
-
+                        <button onclick="fotoAnterior()">⬅</button>
+                        <button onclick="proximaFoto()">➡</button>
                     </div>
-
                 </div>
-
             </div>
         </section>
 
         <div class="divider"></div>
 
-
-
         <!-- CARTA -->
         <section id="carta">
-            <h2>💌 Uma <em>carta</em> para você</h2>
-            <div class="carta-box">
-                Oi, meu amor. Você sabe que eu não sou muito bom escrevendo textos, mas isso não podia faltar, né?<br><br>
-                Queria fazer um presentinho pra ti, porque tu sempre faz pra mim. E não, não é porque tu brigou comigo kkkkk, eu já estava pensando nisso antes até de tu fazer um pra mim 😅<br><br>
-                O problema é que eu não sabia muito bem o que fazer, então decidi colocar um pouco de tudo. Espero que goste.<br><br>
-                Essa carta que tu abriu, a princípio, era pra ser uma declaração, mas tu sabe que eu não sou muito bom nisso, então segue lendo que talvez tu ache alguma ☺️<br><br>
-                Fiz bastante coisa pra você e deu bastante trabalho, então espero mesmo que goste.<br><br>
-                Te amo, minha princesa ❤️
+            <h2 class="reveal">💌 Uma <em>carta</em> para você</h2>
+            <div class="carta-box reveal">
+                <div class="carta-lacre" id="cartaLacre" onclick="abrirCarta()">
+                    <span class="lacre-icon">💌</span>
+                    <p>Clique para abrir a carta</p>
+                </div>
+                <div class="carta-conteudo" id="cartaConteudo" style="display:none;">
+                    Oi, meu amor. Você sabe que eu não sou muito bom escrevendo textos, mas isso não podia faltar, né?<br><br>
+                    Queria fazer um presentinho pra ti, porque tu sempre faz pra mim. E não, não é porque tu brigou comigo kkkkk, eu já estava pensando nisso antes até de tu fazer um pra mim 😅<br><br>
+                    O problema é que eu não sabia muito bem o que fazer, então decidi colocar um pouco de tudo. Espero que goste.<br><br>
+                    Essa carta que tu abriu, a princípio, era pra ser uma declaração, mas tu sabe que eu não sou muito bom nisso, então segue lendo que talvez tu ache alguma ☺️<br><br>
+                    Fiz bastante coisa pra você e deu bastante trabalho, então espero mesmo que goste.<br><br>
+                    Te amo, minha princesa ❤️
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- MURAL DE MENSAGENS -->
+        <section id="mural">
+            <h2 class="reveal">📝 Nosso <em>Mural</em></h2>
+            <div class="mural-wrapper reveal">
+                <div class="mural-form">
+                    <input type="text" id="muralNome" placeholder="Seu nome (ex: Meu Amor)" maxlength="30">
+                    <textarea id="muralTexto" placeholder="Escreva uma mensagem de amor... 💕" maxlength="200" rows="3"></textarea>
+                    <div class="mural-emojis">
+                        <button onclick="addEmoji('❤️')">❤️</button>
+                        <button onclick="addEmoji('💕')">💕</button>
+                        <button onclick="addEmoji('🌹')">🌹</button>
+                        <button onclick="addEmoji('✨')">✨</button>
+                        <button onclick="addEmoji('💋')">💋</button>
+                        <button onclick="addEmoji('🥰')">🥰</button>
+                        <button onclick="addEmoji('💖')">💖</button>
+                        <button onclick="addEmoji('🫶')">🫶</button>
+                    </div>
+                    <button class="btn-mural-add" onclick="adicionarMensagem()">Postar no Mural ❤️</button>
+                </div>
+                <div class="mural-posts" id="muralPosts">
+                    <!-- posts carregados do localStorage -->
+                </div>
             </div>
         </section>
 
@@ -198,215 +343,55 @@
 
         <!-- CINEMA -->
         <section id="cinema">
-            <h2>🎬 Nosso <em>Cinema</em></h2>
-
-            <div class="cinema-box">
-
-                <video id="videoCinema" class="video-cinema" controls>
+            <h2 class="reveal">🎬 Nosso <em>Cinema</em></h2>
+            <div class="cinema-box reveal">
+                <video id="videoCinema" class="video-cinema" controls playsinline>
                     <source src="/static/video/v1.mp4" type="video/mp4">
                     Seu navegador não suporta vídeo.
                 </video>
-
-                <button class="play-btn" onclick="tocarVideo()">
-                    ▶ Play
-                </button>
-
+                <button class="play-btn" onclick="tocarVideo()">▶ Play</button>
             </div>
         </section>
 
         <div class="divider"></div>
-        
+
         <!-- JOGUINHO -->
         <section id="joguinho">
-            <h2>🎮 <em>Joguinho</em> do Amor</h2>
-            <div class="surpresa-box">
+            <h2 class="reveal">🎮 <em>Joguinho</em> do Amor</h2>
+            <div class="surpresa-box reveal">
                 <p class="jogo-desc">Fiz um joguinho especial pra você Princesa ❤️<br>Colete os corações e desvie dos corações quebrados 💕</p>
                 <a href="/game" class="jogo-btn">Jogar Agora ❤️</a>
             </div>
         </section>
 
         <!-- FOOTER -->
-        <footer>Feito com ❤️ especialmente para você</footer>
+        <footer>
+            <div class="footer-content">
+                <div class="footer-heart">❤️</div>
+                <p>Feito com muito amor especialmente para você</p>
+                <p class="footer-sub">Cada linha de código escrita pensando em você 💕</p>
+            </div>
+        </footer>
 
     </div>
 
     <!-- BOTÃO TOPO -->
     <button class="topo" id="btnTopo" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-    <script>
-        // ── BG ESTRELAS ──
-        const bgCanvas = document.getElementById('bgCanvas');
-        const bgCtx = bgCanvas.getContext('2d');
-        function resizeBg() {
-            bgCanvas.width  = window.innerWidth;
-            bgCanvas.height = window.innerHeight;
-        }
-        resizeBg();
-        window.addEventListener('resize', resizeBg);
+    <!-- EASTER EGG MODAL -->
+    <div id="easterEggModal" class="modal-overlay" onclick="fecharEasterEgg()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <button class="modal-fechar" onclick="fecharEasterEgg()">✕</button>
+            <div class="modal-emoji">🌟</div>
+            <h3>Uma mensagem secreta ❤️</h3>
+            <p id="easterMsg"></p>
+            <button class="btn" onclick="proximaMensagemSecreta()">Outra mensagem ✨</button>
+        </div>
+    </div>
 
-        const stars = Array.from({length: 140}, () => ({
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-            r: Math.random() * 1.4 + 0.3,
-            a: Math.random() * Math.PI * 2,
-            speed: Math.random() * 0.008 + 0.003
-        }));
+    <!-- NOTIFICAÇÃO TOAST -->
+    <div id="toast" class="toast"></div>
 
-        (function animBg() {
-            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-            stars.forEach(s => {
-                s.a += s.speed;
-                const alpha = (Math.sin(s.a) * 0.5 + 0.5) * 0.5 + 0.08;
-                bgCtx.beginPath();
-                bgCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-                bgCtx.fillStyle = `rgba(255,137,181,${alpha})`;
-                bgCtx.fill();
-            });
-            requestAnimationFrame(animBg);
-        })();
-
-        // ── PARTÍCULAS ──
-        const particles = document.getElementById("particles");
-        for (let i = 0; i < 30; i++) {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            heart.innerHTML = "❤";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.fontSize = Math.random() * 18 + 10 + "px";
-            heart.style.animationDuration = Math.random() * 12 + 10 + "s";
-            heart.style.animationDelay = Math.random() * 8 + "s";
-            particles.appendChild(heart);
-        }
-
-        // ── ENTRAR ──
-        function entrarSite() {
-            const intro  = document.getElementById("intro");
-            const site   = document.getElementById("siteConteudo");
-            const musica = document.getElementById("musica");
-            musica.play().catch(() => {});
-            intro.classList.add("sumir");
-            setTimeout(() => {
-                intro.style.display = "none";
-                site.classList.remove("site-hidden");
-                site.classList.add("site-show");
-            }, 1200);
-        }
-
-        // ── CONTADOR ──
-        const dataNamoro = new Date("2023-03-13 00:00:00");
-        function atualizarContador() {
-            const diff = new Date() - dataNamoro;
-            document.getElementById("dias").innerText     = Math.floor(diff / 86400000);
-            document.getElementById("horas").innerText    = Math.floor((diff / 3600000) % 24);
-            document.getElementById("minutos").innerText  = Math.floor((diff / 60000) % 60);
-            document.getElementById("segundos").innerText = Math.floor((diff / 1000) % 60);
-        }
-        setInterval(atualizarContador, 1000);
-        atualizarContador();
-
-        // ── MOTIVOS ──
-        const motivos = [
-            "Porque seu sorriso ilumina meus dias ❤️",
-            "Porque você me faz feliz até nos dias difíceis ❤️",
-            "Porque ao seu lado tudo fica melhor ❤️",
-            "Porque você é minha pessoa favorita ❤️",
-            "Porque eu amo cada detalhe seu ❤️",
-            "Porque você sempre está do meu lado ❤️",
-            "Porque você sempre pensa em mim ❤️",
-            "Porque você não sai da minha cabeça ❤️",
-            "Porque você me conhece melhor do que eu mesmo ❤️",
-            "Porque você me irrita como ninguém 😅",
-            "Porque você é perfeita ❤️",
-            "Porque você sempre vai ser minha princesa ❤️",
-            "Porque você é tudo para mim ❤️"
-        ];
-
-        let indiceMotivo = 0;
-
-        function trocarMotivo() {
-            const el = document.getElementById("motivo");
-
-            el.style.opacity = "0";
-
-            setTimeout(() => {
-
-                // Mostra o motivo atual
-                el.innerText = motivos[indiceMotivo];
-
-                // Passa para o próximo
-                indiceMotivo++;
-
-                // Se chegar no fim, volta para o início
-                if (indiceMotivo >= motivos.length) {
-                    indiceMotivo = 0;
-                }
-
-                el.style.opacity = "1";
-
-            }, 300);
-        }
-
-        // ── SURPRESA ──
-        function mostrarSurpresa() {
-            const surpresa = document.getElementById("surpresa");
-            const botao    = document.querySelector(".surpresa-btn");
-            surpresa.classList.toggle("show");
-            botao.innerText = surpresa.classList.contains("show") ? "Fechar Surpresa 💔" : "Abrir Surpresa ✨";
-        }
-
-        // ── FOTOS DA SURPRESA ──
-        const fotos = [
-            "/static/img/f20.png",
-            "/static/img/f21.png",
-            "/static/img/f22.png",
-            "/static/img/f23.png"
-        ];
-
-        let fotoAtual = 0;
-
-
-        // PRÓXIMA FOTO
-        function proximaFoto() {
-
-            fotoAtual++;
-
-            if (fotoAtual >= fotos.length) {
-                fotoAtual = 0;
-            }
-
-            document.getElementById("fotoSurpresa").src = fotos[fotoAtual];
-        }
-
-
-        // FOTO ANTERIOR
-        function fotoAnterior() {
-
-            fotoAtual--;
-
-            if (fotoAtual < 0) {
-                fotoAtual = fotos.length - 1;
-            }
-
-            document.getElementById("fotoSurpresa").src = fotos[fotoAtual];
-        }
-
-        // ── BOTÃO TOPO ──
-        window.addEventListener("scroll", () => {
-            document.getElementById("btnTopo").classList.toggle("show", window.scrollY > 500);
-        });
-
-                // ── CINEMA ──
-        function tocarVideo() {
-            const video = document.getElementById("videoCinema");
-
-            video.play();
-
-            video.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-        }
-    </script>
-
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
