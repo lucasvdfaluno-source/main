@@ -1858,3 +1858,122 @@ footer p {
     .modal-box { padding: 36px 24px; }
     .modal-box h3 { font-size: 26px; }
 }
+
+/* ════════════════════════════════════════
+   RESPONSIVIDADE
+   ════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    section {
+        padding: 70px 20px;
+    }
+
+    h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    p {
+        font-size: .95rem;
+    }
+
+    .grid,
+    .cards,
+    .galeria-grid,
+    .stats-grid,
+    .datas-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .hero {
+        min-height: 90vh;
+        padding: 100px 20px;
+    }
+
+    .hero img {
+        max-width: 90%;
+    }
+
+    .contador-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .tempo-box {
+        padding: 16px;
+    }
+
+    .taro-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .galeria img {
+        height: auto;
+    }
+
+    .lightbox img {
+        max-width: 95vw;
+        max-height: 70vh;
+    }
+
+    .mural-form {
+        flex-direction: column;
+    }
+
+    .mural-form input,
+    .mural-form textarea,
+    .mural-form button {
+        width: 100%;
+    }
+
+    .drawer {
+        width: 82%;
+    }
+
+    .surpresa-box {
+        padding: 20px;
+    }
+
+}
+
+/* CELULARES PEQUENOS */
+
+@media (max-width: 480px) {
+
+    h1 {
+        font-size: 1.7rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    .contador-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tempo-box {
+        padding: 14px;
+    }
+
+    .hero {
+        padding-top: 120px;
+    }
+
+    .data-card,
+    .mural-post,
+    .taro-carta {
+        border-radius: 18px;
+    }
+
+}

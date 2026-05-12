@@ -754,3 +754,177 @@ function chuvaDeCoracoes() {
         }, i * 80);
     }
 }
+
+// ══════════════════════════════════════════
+//   RESPONSIVIDADE & OTIMIZAÇÃO MOBILE
+// ══════════════════════════════════════════
+
+const isMobile = window.innerWidth <= 768;
+
+// DESATIVA CURSOR PERSONALIZADO NO MOBILE
+if (isMobile) {
+
+    if (cursor) cursor.style.display = 'none';
+    if (cursorTrail) cursorTrail.style.display = 'none';
+
+    document.body.style.cursor = 'auto';
+
+}
+
+// AJUSTA QUANTIDADE DE ESTRELAS
+function atualizarEstrelas() {
+
+    stars.length = 0;
+
+    const total = window.innerWidth <= 768 ? 60 : 160;
+
+    for (let i = 0; i < total; i++) {
+
+        stars.push({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            r: Math.random() * 1.6 + 0.2,
+            a: Math.random() * Math.PI * 2,
+            speed: Math.random() * 0.007 + 0.002
+        });
+
+    }
+
+}
+
+atualizarEstrelas();
+
+// AJUSTA PARTÍCULAS NO MOBILE
+function atualizarParticulas() {
+
+    if (!particles) return;
+
+    particles.innerHTML = '';
+
+    const total = window.innerWidth <= 768 ? 12 : 30;
+
+    for (let i = 0; i < total; i++) {
+
+        const heart = document.createElement("div");
+
+        heart.classList.add("heart");
+
+        heart.innerHTML =
+            ["❤", "💕", "✨", "💖"]
+            [Math.floor(Math.random() * 4)];
+
+        heart.style.left = Math.random() * 100 + "vw";
+
+        heart.style.fontSize =
+            (Math.random() * 14 + 8) + "px";
+
+        heart.style.animationDuration =
+            (Math.random() * 10 + 10) + "s";
+
+        heart.style.animationDelay =
+            Math.random() * 5 + "s";
+
+        particles.appendChild(heart);
+
+    }
+
+}
+
+atualizarParticulas();
+
+// REAJUSTA TUDO AO REDIMENSIONAR
+window.addEventListener('resize', () => {
+
+    resizeBg();
+
+    atualizarEstrelas();
+
+    atualizarParticulas();
+
+});
+
+// MELHORA SCROLL NO MOBILE
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+    link.addEventListener('click', e => {
+
+        const alvo = document.querySelector(
+            link.getAttribute('href')
+        );
+
+        if (alvo) {
+
+            e.preventDefault();
+
+            alvo.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+
+            fecharDrawer();
+
+        }
+
+    });
+
+});
+
+// PREVINE ZOOM DUPLO NO IOS
+document.addEventListener('touchstart', () => {}, {
+    passive: true
+});
+
+// OTIMIZA PARALLAX EM CELULAR
+window.addEventListener('scroll', () => {
+
+    if (!heroBg) return;
+
+    const scrolled = window.scrollY;
+
+    if (window.innerWidth <= 768) {
+
+        heroBg.style.transform =
+            `translateY(${scrolled * 0.15}px)`;
+
+    } else {
+
+        heroBg.style.transform =
+            `translateY(${scrolled * 0.35}px)`;
+
+    }
+
+});
+
+// MELHORA PERFORMANCE DAS ANIMAÇÕES
+if (window.innerWidth <= 768) {
+
+    document.documentElement.style.setProperty(
+        '--blur-strength',
+        '6px'
+    );
+
+}
+
+// FECHA DRAWER AO GIRAR TELA
+window.addEventListener('orientationchange', () => {
+
+    fecharDrawer();
+
+});
+
+// TOQUE MAIS SUAVE NOS BOTÕES
+document.querySelectorAll('button').forEach(btn => {
+
+    btn.addEventListener('touchstart', () => {
+
+        btn.style.transform = 'scale(0.96)';
+
+    });
+
+    btn.addEventListener('touchend', () => {
+
+        btn.style.transform = '';
+
+    });
+
+});
