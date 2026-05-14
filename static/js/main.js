@@ -928,3 +928,39 @@ document.querySelectorAll('button').forEach(btn => {
     });
 
 });
+
+// ══════════════════════════════════════════
+//   CONTROLE DE FOTOS (SURPRESA) - FINAL FIX
+// ══════════════════════════════════════════
+
+window.fotos = [
+    "/static/img/f20.jpg",
+    "/static/img/f21.jpg",
+    "/static/img/f22.jpg",
+    "/static/img/f23.jpg"
+];
+
+window.fotoAtual = 0;
+
+function trocarImagem() {
+    const img = document.getElementById("fotoSurpresa");
+    if (!img) return;
+
+    img.style.opacity = "0";
+
+    setTimeout(() => {
+        img.src = window.fotos[window.fotoAtual] + "?v=" + Date.now();
+        img.style.opacity = "1";
+    }, 150);
+}
+
+function proximaFoto() {
+    window.fotoAtual = (window.fotoAtual + 1) % window.fotos.length;
+    trocarImagem();
+}
+
+function fotoAnterior() {
+    window.fotoAtual =
+        (window.fotoAtual - 1 + window.fotos.length) % window.fotos.length;
+    trocarImagem();
+}
